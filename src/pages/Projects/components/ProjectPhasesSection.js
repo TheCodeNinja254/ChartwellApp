@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 // eslint-disable-next-line no-unused-vars
 const ProjectPhasesSection = ({
+  selectedTemplate,
   phasesNumber,
   stageOneCollapse,
   setNextButtonActive,
@@ -36,6 +37,7 @@ const ProjectPhasesSection = ({
             phaseNo={i}
             stageOneCollapse={stageOneCollapse}
             setNextButtonActive={setNextButtonActive}
+            selectedTemplate={selectedTemplate}
           />
         ))
       ) : (
@@ -43,6 +45,7 @@ const ProjectPhasesSection = ({
           phaseNo={1}
           stageOneCollapse={stageOneCollapse}
           setNextButtonActive={setNextButtonActive}
+          selectedTemplate={selectedTemplate}
         />
       )}
     </Card>

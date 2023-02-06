@@ -8,11 +8,16 @@ import {
   Checkbox,
   Collapse,
   Divider,
+  FormControl,
+  FormHelperText,
   Grid,
+  InputLabel,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  MenuItem,
+  Select,
   Typography,
 } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
@@ -23,6 +28,7 @@ import nothingToSee from "../assets/images/Graphics/nothingToSee.jpg";
 import clapImage from "../assets/images/Graphics/clap.png";
 import Image from "./Image";
 import _opportunities from "../_mockData/_opportunities";
+import _projectKPIs from "../_mockData/_projectKPIs";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -83,6 +89,7 @@ const ProjectPhaseCard = ({
   phaseNo,
   stageOneCollapse,
   setNextButtonActive,
+  selectedTemplate,
 }) => {
   const classes = useStyles();
 
@@ -224,24 +231,47 @@ const ProjectPhaseCard = ({
               </Typography>
               <Grid container spacing={2}>
                 <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                  <TextField
-                    margin="dense"
-                    id="name"
-                    label="Improvement KPI"
-                    type="text"
-                    onChange={(e) => {
-                      setImprovementKPI(e.target.value);
-                    }}
-                    value={improvementKPI}
-                    fullWidth
+                  <FormControl
                     variant="standard"
-                  />
+                    sx={{ m: 1 }}
+                    fullWidth
+                    margin="dense"
+                  >
+                    <InputLabel id="demo-simple-select-standard-label">
+                      Select Improvement KPI
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-standard-label"
+                      id="demo-simple-select-standard"
+                      value={improvementKPI}
+                      onChange={(e) => {
+                        setImprovementKPI(e.target.value);
+                      }}
+                      label="Assign action item to"
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      {_projectKPIs
+                        .filter((k) => k.defaultFor === selectedTemplate)
+                        .map((k) => (
+                          <MenuItem value={k.name} key={k.id}>
+                            {k.name}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                    {selectedTemplate === "" && (
+                      <FormHelperText>
+                        Select a Project template to get a list of KPIs
+                      </FormHelperText>
+                    )}
+                  </FormControl>
                 </Grid>
                 <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
                   <TextField
                     margin="dense"
                     id="name"
-                    label="Target for the KPI"
+                    label="Target for the KPI (Enter Number)"
                     type="text"
                     onChange={(e) => {
                       setKPITarget(e.target.value);
@@ -250,6 +280,9 @@ const ProjectPhaseCard = ({
                     fullWidth
                     variant="standard"
                   />
+                  <FormHelperText>
+                    Select a Project template to get a list of KPIs
+                  </FormHelperText>
                 </Grid>
               </Grid>
               <Button
@@ -326,26 +359,6 @@ const ProjectPhaseCard = ({
                         >
                           &gt;
                         </Button>
-                        {/* <Button */}
-                        {/*  sx={{ my: 0.5 }} */}
-                        {/*  variant="outlined" */}
-                        {/*  size="small" */}
-                        {/*  onClick={handleCheckedLeft} */}
-                        {/*  disabled={rightChecked.length === 0} */}
-                        {/*  aria-label="move selected left" */}
-                        {/* > */}
-                        {/*  &lt; */}
-                        {/* </Button> */}
-                        {/* <Button */}
-                        {/*  sx={{ my: 0.5 }} */}
-                        {/*  variant="outlined" */}
-                        {/*  size="small" */}
-                        {/*  onClick={handleAllLeft} */}
-                        {/*  disabled={right.length === 0} */}
-                        {/*  aria-label="move all left" */}
-                        {/* > */}
-                        {/*  ≪ */}
-                        {/* </Button> */}
                       </Grid>
                     </Grid>
                   </>

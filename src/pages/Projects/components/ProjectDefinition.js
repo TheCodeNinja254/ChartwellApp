@@ -188,6 +188,7 @@ const ProjectDefinition = () => {
                   <ProjectMembersList />
                 </Collapse>
                 <ProjectPhasesSection
+                  selectedTemplate={selectedTemplate}
                   phasesNumber={phasesNumber}
                   stageOneCollapse={stageOneCollapse}
                   setNextButtonActive={setNextButtonActive}
