@@ -21,6 +21,7 @@ import TextField from "@material-ui/core/TextField";
 import ProjectMembersList from "../Tables/ProjectMembersList";
 import ProjectPhasesSection from "./ProjectPhasesSection";
 import KPIPackCustomization from "./KPIPackCustomization";
+import _projectTemplates from "../../../_mockData/_projectTemplates";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,21 +60,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
 }));
-
-const projectTemplates = [
-  {
-    id: 1,
-    name: "Throughput Increase",
-  },
-  {
-    id: 2,
-    name: "Productivity Increase",
-  },
-  {
-    id: 3,
-    name: "Waste Reduction",
-  },
-];
 
 const ProjectDefinition = () => {
   const classes = useStyles();
@@ -163,7 +149,7 @@ const ProjectDefinition = () => {
                               <MenuItem value="">
                                 <em>None</em>
                               </MenuItem>
-                              {projectTemplates.map((template) => (
+                              {_projectTemplates.map((template) => (
                                 <MenuItem
                                   value={template.name}
                                   key={template.id}
