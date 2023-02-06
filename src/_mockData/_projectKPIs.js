@@ -5,77 +5,102 @@ const _projectKPIs = [
     name: "Output Increase by Week",
   },
   {
-    id: 1,
+    id: 2,
     defaultFor: "Slow Running",
     name: "Efficiency Increase by Week",
   },
 
   {
-    id: 1,
+    id: 3,
     defaultFor: "Slow Running",
     name: "Time Lost to Slow Running by Week",
   },
   {
-    id: 1,
+    id: 4,
     defaultFor: "Slow Running",
     name: "Output Increase by Day",
   },
   {
-    id: 1,
+    id: 5,
     defaultFor: "Slow Running",
     name: "Efficiency Increase by Day",
   },
   {
-    id: 1,
+    id: 6,
     defaultFor: "Slow Running",
     name: "Time Lost to Slow Running by Day",
   },
   {
-    id: 1,
+    id: 7,
     defaultFor: "Slow Running",
     name: "Slow Running Time Pareto",
   },
   {
-    id: 1,
+    id: 8,
     defaultFor: "Changeover",
     name: "Average Changeover Time by Week",
   },
   {
-    id: 1,
+    id: 9,
     defaultFor: "Changeover",
     name: "Average Changeover Time by Day",
   },
   {
-    id: 1,
+    id: 10,
     defaultFor: "Changeover",
     name: "Changeover Gantt (if changeover length >1 hour)",
   },
   {
-    id: 1,
+    id: 11,
     defaultFor: "Downtime",
     name: "Unplanned Downtime per Batch by Week",
   },
   {
-    id: 1,
+    id: 12,
     defaultFor: "Downtime",
     name: "Unplanned Downtime per Batch on Bottleneck Asset by Week",
   },
   {
-    id: 1,
+    id: 13,
     defaultFor: "Downtime",
     name: "Unplanned Downtime per Batch by Day",
   },
-
   {
-    id: 1,
+    id: 14,
     defaultFor: "Downtime",
     name: "Unplanned Downtime per Batch on Bottleneck Asset by Day",
   },
 
   {
-    id: 1,
+    id: 15,
     defaultFor: "Downtime",
     name: "Downtime Pareto",
+  },
+
+  {
+    id: 16,
+    defaultFor: "Waste/Yield/Quality",
+    name: "Rework Amount per Week",
+  },
+  {
+    id: 17,
+    defaultFor: "Waste/Yield/Quality",
+    name: "Yield per Week",
+  },
+  {
+    id: 18,
+    defaultFor: "Waste/Yield/Quality",
+    name: "Rework Amount per Day",
+  },
+  {
+    id: 19,
+    defaultFor: "Waste/Yield/Quality",
+    name: "Yield per Day",
+  },
+  {
+    id: 20,
+    defaultFor: "Waste/Yield/Quality",
+    name: "Waste Stream Pareto",
   },
 ];
 
