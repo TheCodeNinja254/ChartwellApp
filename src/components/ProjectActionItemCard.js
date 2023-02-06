@@ -17,6 +17,7 @@ import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import _membersList from "../_mockData/_membersList";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -34,10 +35,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProjectActionItemCard = ({ checked, handleToggle, value, labelId }) => {
+const ProjectActionItemCard = ({ checked, handleToggle, action, labelId }) => {
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = React.useState();
+  const [selectedDate, setSelectedDate] = React.useState(action.dueDate);
   const [assignee, setAssignee] = React.useState("");
 
   const handleAssigneeChange = (event) => {
@@ -49,7 +50,7 @@ const ProjectActionItemCard = ({ checked, handleToggle, value, labelId }) => {
       <CardContent>
         <Typography variant="body2" className={classes.actionTitle}>
           <strong>Action Item: </strong>
-          {value?.actionName}
+          {action?.actionName}
         </Typography>
         <Box>
           <Grid container spacing={2}>
@@ -89,9 +90,9 @@ const ProjectActionItemCard = ({ checked, handleToggle, value, labelId }) => {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value="Jane">Jane Doe</MenuItem>
-                  <MenuItem value="John">John Doe</MenuItem>
-                  <MenuItem value="Sebastian">Sebastian Cricket</MenuItem>
+                  {_membersList?.map((m) => (
+                    <MenuItem value={m.name}>{m.name}</MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
@@ -100,8 +101,8 @@ const ProjectActionItemCard = ({ checked, handleToggle, value, labelId }) => {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={checked.indexOf(value) !== -1}
-                      onChange={handleToggle(value)}
+                      checked={checked.indexOf(action) !== -1}
+                      onChange={handleToggle(action)}
                       tabIndex={-1}
                       inputProps={{
                         "aria-labelledby": labelId,

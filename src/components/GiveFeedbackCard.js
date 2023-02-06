@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GiveFeedbackCard = () => {
+const GiveFeedbackCard = ({ feedbackData, setFeedbackData }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -63,7 +63,12 @@ const GiveFeedbackCard = () => {
             </Button>
           </Grid>
         </Grid>
-        <GiveFeedbackModal open={open} setOpen={setOpen} />
+        <GiveFeedbackModal
+          open={open}
+          setOpen={setOpen}
+          feedbackData={feedbackData}
+          setFeedbackData={setFeedbackData}
+        />
       </CardContent>
     </Card>
   );

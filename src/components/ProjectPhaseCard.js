@@ -29,6 +29,7 @@ import clapImage from "../assets/images/Graphics/clap.png";
 import Image from "./Image";
 import _opportunities from "../_mockData/_opportunities";
 import _projectKPIs from "../_mockData/_projectKPIs";
+import _projectTemplates from "../_mockData/_projectTemplates";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -75,6 +76,13 @@ const useStyles = makeStyles((theme) => ({
   opportunitiesHeader: {
     marginTop: theme.spacing(4),
   },
+  helperText: {
+    fontWeight: 700,
+    color: theme.palette.primary.main,
+  },
+  projectTitle: {
+    fontSize: 10,
+  },
 }));
 
 const not = (a, b) => {
@@ -98,11 +106,18 @@ const ProjectPhaseCard = ({
   // Project KPIs Specific
   const [kpiTarget, setKPITarget] = React.useState("");
   const [improvementKPI, setImprovementKPI] = React.useState("");
+  const [unitOfMeasure, setUnitOfMeasure] = React.useState("");
   const [kpiAndTargets, setKPIAndTargets] = React.useState([]);
+  const [checked, setChecked] = React.useState([]);
+  const [left, setLeft] = React.useState(_opportunities);
+  const [right, setRight] = React.useState([]);
 
   const handleKPIsChange = () => {
     // Add @KPI items to the array
-    setKPIAndTargets([...kpiAndTargets, { kpiTarget, improvementKPI }]);
+    setKPIAndTargets([
+      ...kpiAndTargets,
+      { kpiTarget, improvementKPI, unitOfMeasure },
+    ]);
 
     // Allow for the Next button to be clickable
     setNextButtonActive(false);
@@ -112,9 +127,10 @@ const ProjectPhaseCard = ({
     setKPITarget("");
   };
 
-  const [checked, setChecked] = React.useState([]);
-  const [left, setLeft] = React.useState(_opportunities);
-  const [right, setRight] = React.useState([]);
+  const handleTargetChange = (e, uom) => {
+    setKPITarget(e.target.value);
+    setUnitOfMeasure(uom);
+  };
 
   const leftChecked = intersection(checked, left);
 
@@ -229,6 +245,11 @@ const ProjectPhaseCard = ({
               <Typography variant="body2" className={classes.actionText}>
                 <strong>ADD Improvement KPIs & Targets</strong>
               </Typography>
+              {selectedTemplate !== "" && (
+                <Typography variant="body2" className={classes.projectTitle}>
+                  Project Type: <strong>{selectedTemplate}</strong>
+                </Typography>
+              )}
               <Grid container spacing={2}>
                 <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
                   <FormControl
@@ -268,21 +289,31 @@ const ProjectPhaseCard = ({
                   </FormControl>
                 </Grid>
                 <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                  <TextField
-                    margin="dense"
-                    id="name"
-                    label="Target for the KPI (Enter Number)"
-                    type="text"
-                    onChange={(e) => {
-                      setKPITarget(e.target.value);
-                    }}
-                    value={kpiTarget}
-                    fullWidth
-                    variant="standard"
-                  />
-                  <FormHelperText>
-                    Select a Project template to get a list of KPIs
-                  </FormHelperText>
+                  {_projectTemplates
+                    .filter((t) => t.name === selectedTemplate)
+                    ?.map((t) => (
+                      <>
+                        <TextField
+                          margin="dense"
+                          id="name"
+                          label="Target for the KPI (Enter Number)"
+                          type="number"
+                          // onChange={(e) => {
+                          //   setKPITarget(`${e.target.value}${t.uom}`);
+                          // }}
+                          onChange={(e) => handleTargetChange(e, t.uom)}
+                          value={kpiTarget}
+                          fullWidth
+                          variant="standard"
+                        />
+                        <FormHelperText>
+                          Enter {t.metric} in{" "}
+                          <span className={classes.helperText}>
+                            {t.unitOfMeasure}
+                          </span>
+                        </FormHelperText>
+                      </>
+                    ))}
                 </Grid>
               </Grid>
               <Button
@@ -340,24 +371,24 @@ const ProjectPhaseCard = ({
                     <Grid item>
                       <Grid container direction="column" alignItems="center">
                         <Button
-                          sx={{ my: 0.5 }}
+                          sx={{ mt: 0.5 }}
                           variant="outlined"
                           size="small"
                           onClick={handleAllRight}
                           disabled={left.length === 0}
                           aria-label="move all right"
                         >
-                          ≫
+                          Add All ≫
                         </Button>
                         <Button
-                          sx={{ my: 0.5 }}
+                          sx={{ mt: 0.5 }}
                           variant="outlined"
                           size="small"
                           onClick={handleCheckedRight}
                           disabled={leftChecked.length === 0}
                           aria-label="move selected right"
                         >
-                          &gt;
+                          Add Selected &gt;
                         </Button>
                       </Grid>
                     </Grid>
@@ -379,7 +410,7 @@ const ProjectPhaseCard = ({
                       Phase Improvement Targets
                     </Typography>
                     <Grid container>
-                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                      <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
                         <Typography
                           variant="body1"
                           className={classes.subHeading}
@@ -387,7 +418,7 @@ const ProjectPhaseCard = ({
                           Phase Improvement KPI
                         </Typography>
                       </Grid>
-                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                      <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
                         <Typography
                           variant="body1"
                           className={classes.subHeading}
@@ -399,7 +430,7 @@ const ProjectPhaseCard = ({
                     {kpiAndTargets?.map((target) => (
                       <>
                         <Grid container>
-                          <Grid item xs={7} sm={7} md={7} lg={7} xl={7}>
+                          <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
                             <Grid container>
                               <Grid item xs={3} sm={3} md={2} lg={2} xl={2}>
                                 <Adjust />
@@ -411,9 +442,10 @@ const ProjectPhaseCard = ({
                               </Grid>
                             </Grid>
                           </Grid>
-                          <Grid item xs={5} sm={5} md={5} lg={5} xl={5}>
+                          <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
                             <Typography variant="body2">
                               {target.kpiTarget}
+                              {target.unitOfMeasure}
                             </Typography>
                           </Grid>
                         </Grid>

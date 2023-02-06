@@ -8,20 +8,17 @@ import {
   Card,
   CardContent,
   Collapse,
-  FormControl,
   Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   Typography,
 } from "@material-ui/core";
 import { ExpandMore, Info, NavigateNext } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import ProjectMembersList from "../Tables/ProjectMembersList";
 import ProjectPhasesSection from "./ProjectPhasesSection";
-import KPIPackCustomization from "./KPIPackCustomization";
-import _projectTemplates from "../../../_mockData/_projectTemplates";
+import ActionListSection from "./ActionListSection";
+import ProjectDefinitionForm from "../Forms/ProjectDefinitionForm";
+import Image from "../../../components/Image";
+import startImage from "../../../assets/images/Graphics/start.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +55,11 @@ const useStyles = makeStyles((theme) => ({
   },
   navigationButton: {
     marginTop: theme.spacing(2),
+  },
+  callToAction: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    fontWeight: 700,
   },
 }));
 
@@ -122,60 +124,32 @@ const ProjectDefinition = () => {
                     className={classes.innerCard}
                   >
                     <CardContent>
-                      <Typography variant="body2" color="primary">
-                        Define a project by selecting a project type and
-                        template from the template list, the number of phases,
-                        members involved in the project and setting completion
-                        dates on each of the phases
-                      </Typography>
-                      <Grid container spacing={3}>
+                      <Grid container spacing={1}>
                         <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-                          <FormControl
-                            variant="standard"
-                            sx={{ m: 1, minWidth: 120 }}
-                            fullWidth
-                            margin="dense"
+                          <Image src={startImage} alt="start" height={150} />
+                          <Typography variant="body2" color="primary">
+                            First things first,
+                          </Typography>
+                          <Typography
+                            variant="h3"
+                            className={classes.callToAction}
                           >
-                            <InputLabel id="demo-simple-select-standard-label">
-                              Select a project template
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-standard-label"
-                              id="demo-simple-select-standard"
-                              value={selectedTemplate}
-                              onChange={handleTemplateChange}
-                              label="Select a project template"
-                            >
-                              <MenuItem value="">
-                                <em>None</em>
-                              </MenuItem>
-                              {_projectTemplates.map((template) => (
-                                <MenuItem
-                                  value={template.name}
-                                  key={template.id}
-                                >
-                                  {template.name}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
+                            Let&apos;s set up the project
+                          </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-                          <TextField
-                            margin="dense"
-                            id="name"
-                            value={phasesNumber}
-                            label="Number of Phases"
-                            type="number"
-                            onChange={handlePhaseChange}
-                            error={phasesNumber < 1 || phasesNumber > 9}
-                            helperText={
-                              phasesNumber < 1 || phasesNumber > 9
-                                ? "The project must have at least 1 phase and at most 9 phases"
-                                : ""
-                            }
-                            fullWidth
-                            variant="standard"
+                        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+                          <Typography variant="body2" color="primary">
+                            Define a project by selecting a project type and
+                            template from the template list, the number of
+                            phases, members involved in the project and setting
+                            completion dates on each of the phases
+                          </Typography>
+                          <ProjectDefinitionForm
+                            selectedTemplate={selectedTemplate}
+                            handleTemplateChange={handleTemplateChange}
+                            phasesNumber={phasesNumber}
+                            handlePhaseChange={handlePhaseChange}
+                            className={classes.innerCard}
                           />
                         </Grid>
                       </Grid>
@@ -242,7 +216,7 @@ const ProjectDefinition = () => {
           </AccordionDetails>
         </Accordion>
       ) : (
-        <KPIPackCustomization selectedTemplate={selectedTemplate} />
+        <ActionListSection selectedTemplate={selectedTemplate} />
       )}
     </Card>
   );

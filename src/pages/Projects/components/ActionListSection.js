@@ -19,6 +19,7 @@ import Image from "../../../components/Image";
 import nothingToShow from "../../../assets/images/Graphics/nothingToSee.jpg";
 import AddActionItemForm from "../Forms/AddActionItemForm";
 import CompleteProjectModal from "./Feedback/CompleteProjectModal";
+import _projectActionItems from "../../../_mockData/_projectActionItems";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -59,34 +60,6 @@ const intersection = (a, b) => {
   return a.filter((value) => b.indexOf(value) !== -1);
 };
 
-const actionsList = [
-  {
-    key: 1,
-    actionName: "Do thing 1",
-    defaultFor: "Throughput Increase",
-  },
-  {
-    key: 2,
-    actionName: "Do thing 2",
-    defaultFor: "Productivity Increase",
-  },
-  {
-    key: 3,
-    actionName: "Do thing 3",
-    defaultFor: "Waste Reduction",
-  },
-  {
-    key: 4,
-    actionName: "Do thing 4",
-    defaultFor: "Waste Reduction",
-  },
-  {
-    key: 5,
-    actionName: "Do thing 5",
-    defaultFor: "Productivity Increase",
-  },
-];
-
 const ActionListSection = ({ selectedTemplate }) => {
   const classes = useStyles();
 
@@ -104,7 +77,7 @@ const ActionListSection = ({ selectedTemplate }) => {
 
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState(
-    actionsList.filter((chart) => chart.defaultFor === selectedTemplate)
+    _projectActionItems.filter((chart) => chart.defaultFor === selectedTemplate)
   );
   const [right, setRight] = React.useState([]);
 
@@ -112,6 +85,8 @@ const ActionListSection = ({ selectedTemplate }) => {
 
   const handleAddActionItem = () => {
     const newLeft = [...left];
+
+    // Ensure the last added action shows up on top.
     newLeft.unshift({
       key: left?.length + 2,
       actionName: addActionValue,
@@ -209,15 +184,15 @@ const ActionListSection = ({ selectedTemplate }) => {
             <Typography variant="body2" className={classes.subHeading}>
               Action Items
             </Typography>
-            {left?.map((value) => {
-              const labelId = `transfer-list-item-${value?.chartName}-label`;
+            {left?.map((_action) => {
+              const _labelId = `transfer-list-item-${_action?.id}-label`;
 
               return (
                 <ProjectActionItemCard
                   checked={checked}
                   handleToggle={handleToggle}
-                  value={value}
-                  labelId={labelId}
+                  action={_action}
+                  labelId={_labelId}
                 />
               );
             })}

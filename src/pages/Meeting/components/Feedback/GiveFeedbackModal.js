@@ -19,6 +19,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Image from "../../../../components/Image";
 import feedbackImage from "../../../../assets/images/Graphics/feedbackNow.jpg";
 import clapImage from "../../../../assets/images/Graphics/clap.png";
+import _membersList from "../../../../_mockData/_membersList";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -33,24 +34,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GiveFeedbackModal = ({ open, setOpen }) => {
+const GiveFeedbackModal = ({
+  open,
+  setOpen,
+  feedbackData,
+  setFeedbackData,
+}) => {
   const classes = useStyles();
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const [age, setAge] = React.useState("");
+  const [name, setName] = React.useState("");
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const handleNameChange = (event) => {
+    setName(event.target.value);
   };
 
-  const [value, setValue] = React.useState(78);
+  const [attScore, setAttScore] = React.useState(78);
+  const [feedbackText, setFeedbackScore] = React.useState("");
   const [complete, setComplete] = React.useState(false);
 
   const handleProgressBarChange = (event, newValue) => {
-    setValue(newValue);
+    setAttScore(Number(newValue));
+  };
+
+  const handleFeedbackTextChange = (event) => {
+    setFeedbackScore(event.target.value);
+  };
+
+  const handleAddFeedback = () => {
+    setFeedbackData([{ name, attScore, feedbackText }, ...feedbackData]); // clever unshift, right?
+    setComplete(true);
   };
 
   return (
@@ -102,16 +118,18 @@ const GiveFeedbackModal = ({ open, setOpen }) => {
                 <Select
                   labelId="demo-simple-select-standard-label"
                   id="demo-simple-select-standard"
-                  value={age}
-                  onChange={handleChange}
+                  value={name}
+                  onChange={handleNameChange}
                   label="Select a user to rate"
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value="Jane">Jane Doe</MenuItem>
-                  <MenuItem value="John">John Doe</MenuItem>
-                  <MenuItem value="Sebastian">Sebastian Cricket</MenuItem>
+                  {_membersList?.map((m) => (
+                    <MenuItem value={m.name} key={m.id}>
+                      {m.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
               <TextField
@@ -119,8 +137,10 @@ const GiveFeedbackModal = ({ open, setOpen }) => {
                 id="name"
                 label="Feedback"
                 type="text"
+                value={feedbackText}
                 multiline
                 rowsMax={5}
+                onChange={handleFeedbackTextChange}
                 fullWidth
                 variant="standard"
               />
@@ -128,8 +148,8 @@ const GiveFeedbackModal = ({ open, setOpen }) => {
                 Enter an attitude rating
               </Typography>
               <Slider
-                aria-label="Volume"
-                value={value}
+                aria-label="rating"
+                value={attScore}
                 onChange={handleProgressBarChange}
                 valueLabelDisplay="on"
               />
@@ -147,8 +167,11 @@ const GiveFeedbackModal = ({ open, setOpen }) => {
           </Button>
           {!complete && (
             <Button
-              onClick={() => setComplete(true)}
+              onClick={() => handleAddFeedback()}
               variant="contained"
+              disabled={
+                (!feedbackText || feedbackText === "") && (!name || name === "")
+              }
               color="primary"
               size="small"
               disableElevation

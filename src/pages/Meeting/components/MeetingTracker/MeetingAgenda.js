@@ -10,11 +10,10 @@ import {
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import GiveFeedbackCard from "../../../../components/GiveFeedbackCard";
-import UserFeedbackSection from "./UserFeedbackSection";
 import KPITrackingSection from "./KPITrackingSection";
 import ActionItemsSection from "./ActionItemsSection";
 import _actionItems from "../../../../_mockData/_actionItems";
+import FeedbackSection from "../Feedback/FeedbackSection";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -126,8 +125,7 @@ const MeetingInfoTab = () => {
         <AccordionDetails>
           <Grid container spacing={3}>
             <Grid item lg={9} xl={9} md={12} sm={12} xs={12}>
-              <GiveFeedbackCard />
-              <UserFeedbackSection />
+              <FeedbackSection />
             </Grid>
             <Grid item lg={12} xl={12} md={12} sm={12} xs={12}>
               <Box display="flex" justifyContent="flex-end">

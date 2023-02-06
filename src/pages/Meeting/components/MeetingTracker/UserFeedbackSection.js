@@ -11,14 +11,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserFeedbackSection = () => {
+const UserFeedbackSection = ({ feedbackData }) => {
   const classes = useStyles();
+
   return (
     <Box>
       <Typography variant="h3" className={classes.heading}>
         Given Feedback
       </Typography>
-      <UserFeedbackCard />
+      {feedbackData?.map((userFeedback) => (
+        <UserFeedbackCard userFeedback={userFeedback} />
+      ))}
     </Box>
   );
 };
