@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.lighter,
     borderRadius: 20,
     borderColor: theme.palette.primary.lighter,
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
   avatar: {
     color: theme.palette.primary.dark,

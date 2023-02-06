@@ -251,7 +251,7 @@ const ProjectPhaseCard = ({
                 </Typography>
               )}
               <Grid container spacing={2}>
-                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                   <FormControl
                     variant="standard"
                     sx={{ m: 1 }}
@@ -288,7 +288,7 @@ const ProjectPhaseCard = ({
                     )}
                   </FormControl>
                 </Grid>
-                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                   {_projectTemplates
                     .filter((t) => t.name === selectedTemplate)
                     ?.map((t) => (
@@ -298,9 +298,6 @@ const ProjectPhaseCard = ({
                           id="name"
                           label="Target for the KPI (Enter Number)"
                           type="number"
-                          // onChange={(e) => {
-                          //   setKPITarget(`${e.target.value}${t.uom}`);
-                          // }}
                           onChange={(e) => handleTargetChange(e, t.uom)}
                           value={kpiTarget}
                           fullWidth
