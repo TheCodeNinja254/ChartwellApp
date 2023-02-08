@@ -207,7 +207,7 @@ const ActionItemCard = ({ item }) => {
                             size="small"
                             onClick={() => handleActionStatusChange()}
                           >
-                            Done
+                            Submit
                           </Button>
                         </CardContent>
                       </Card>

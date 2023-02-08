@@ -48,9 +48,10 @@ const GiveFeedbackCard = ({ feedbackData, setFeedbackData }) => {
               Give Feedback
             </Typography>
             <Typography variant="body2">
-              Criticism may not be agreeable, but it is necessary. It fulfils
-              the same function as pain in the human body. It calls attention to
-              an unhealthy state of things.
+              Exchange feedback makes our team stronger by understanding how
+              others perceive our words and actions. Sharing both positive and
+              constructive feedback helps us maintain positive improvement
+              attitudes.
             </Typography>
             <Button
               disableElevation

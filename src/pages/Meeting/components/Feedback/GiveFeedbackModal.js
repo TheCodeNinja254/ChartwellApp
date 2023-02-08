@@ -113,7 +113,7 @@ const GiveFeedbackModal = ({
                 margin="dense"
               >
                 <InputLabel id="demo-simple-select-standard-label">
-                  Select a user to rate
+                  Select a team member
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
