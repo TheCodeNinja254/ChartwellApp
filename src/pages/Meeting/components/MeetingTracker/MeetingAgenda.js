@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -14,6 +14,7 @@ import KPITrackingSection from "./KPITrackingSection";
 import ActionItemsSection from "./ActionItemsSection";
 import _actionItems from "../../../../_mockData/_actionItems";
 import FeedbackSection from "../Feedback/FeedbackSection";
+import EndMeetingModal from "../Feedback/EndMeetingModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,11 +41,19 @@ const MeetingInfoTab = () => {
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState("panel0");
+  const [openEndMeeting, setEndMeetingOpen] = useState(false);
+  const [complete, setComplete] = useState(false);
+
   const [actionItemsActiveList, setActionItemsActiveList] =
     React.useState(_actionItems);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
+  };
+
+  const handleEndMeeting = () => {
+    setEndMeetingOpen(true);
+    setComplete(false);
   };
 
   return (
@@ -129,7 +138,12 @@ const MeetingInfoTab = () => {
             </Grid>
             <Grid item lg={12} xl={12} md={12} sm={12} xs={12}>
               <Box display="flex" justifyContent="flex-end">
-                <Button disableElevation variant="contained" color="primary">
+                <Button
+                  disableElevation
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleEndMeeting()}
+                >
                   END MEETING
                 </Button>
               </Box>
@@ -137,6 +151,12 @@ const MeetingInfoTab = () => {
           </Grid>
         </AccordionDetails>
       </Accordion>
+      <EndMeetingModal
+        open={openEndMeeting}
+        setOpen={setEndMeetingOpen}
+        complete={complete}
+        setComplete={setComplete}
+      />
     </div>
   );
 };
