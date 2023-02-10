@@ -131,6 +131,10 @@ const siteLinks = [
     label: "My Projects",
     url: "/projects",
   },
+  {
+    label: "GlidePath",
+    url: "/chart",
+  },
 ];
 
 const Menubar = () => {

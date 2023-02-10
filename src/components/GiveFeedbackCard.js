@@ -33,6 +33,12 @@ const useStyles = makeStyles((theme) => ({
 const GiveFeedbackCard = ({ feedbackData, setFeedbackData }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [complete, setComplete] = React.useState(false);
+
+  const handleOpenModal = () => {
+    setComplete(false);
+    setOpen(true);
+  };
 
   return (
     <Card elevation={0} className={classes.userFeedbackCard} variant="outlined">
@@ -58,7 +64,7 @@ const GiveFeedbackCard = ({ feedbackData, setFeedbackData }) => {
               variant="contained"
               color="primary"
               className={classes.actionButton}
-              onClick={() => setOpen(true)}
+              onClick={() => handleOpenModal()}
             >
               Give Feedback Now
             </Button>
@@ -69,6 +75,8 @@ const GiveFeedbackCard = ({ feedbackData, setFeedbackData }) => {
           setOpen={setOpen}
           feedbackData={feedbackData}
           setFeedbackData={setFeedbackData}
+          complete={complete}
+          setComplete={setComplete}
         />
       </CardContent>
     </Card>

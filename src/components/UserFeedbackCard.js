@@ -2,12 +2,13 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Avatar,
-  Box,
   Card,
   CardContent,
   Divider,
   Grid,
-  LinearProgress,
+  List,
+  ListItem,
+  ListItemText,
   Typography,
 } from "@material-ui/core";
 import { Person } from "@material-ui/icons";
@@ -41,28 +42,22 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(2),
   },
+  subTitle: {
+    fontWeight: 600,
+    marginTop: theme.spacing(1),
+  },
 }));
 
-const LinearProgressWithLabel = (props) => {
-  return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
-      <Box sx={{ width: "100%", mr: 1 }}>
-        <LinearProgress variant="determinate" {...props} />
-      </Box>
-      <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color="text.secondary">{`${Math.round(
-          props.value
-        )}%`}</Typography>
-      </Box>
-    </Box>
-  );
-};
-
-const UserFeedbackCard = ({ userFeedback }) => {
+const UserFeedbackCard = ({ userFeedback, key }) => {
   const classes = useStyles();
 
   return (
-    <Card elevation={0} className={classes.userFeedbackCard} variant="outlined">
+    <Card
+      elevation={0}
+      className={classes.userFeedbackCard}
+      variant="outlined"
+      key={key}
+    >
       <CardContent>
         <Grid container spacing={3}>
           <Grid item xs={3} xl={1} lg={1} md={1}>
@@ -70,16 +65,42 @@ const UserFeedbackCard = ({ userFeedback }) => {
               <Person />
             </Avatar>
           </Grid>
-          <Grid item xs={5} xl={5} lg={5} md={5}>
+          <Grid item xs={5} sm={5} xl={3} lg={3} md={3}>
             <Typography variant="body1" className={classes.nameText}>
               <strong>{userFeedback.name}</strong>
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+          <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
             <Typography variant="body2" className={classes.nameText}>
-              Att. Score
+              IMPROVEMENT ATTITUDES
             </Typography>
-            <LinearProgressWithLabel value={userFeedback.attScore} />
+            <Divider />
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={12} xl={6} lg={6} md={6}>
+                <Typography variant="body2" className={classes.subTitle}>
+                  Improvement Attitudes
+                </Typography>
+                <List dense>
+                  {userFeedback.improvementPosAttitude?.map((att) => (
+                    <ListItem>
+                      <ListItemText primary={att} key={att} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Grid>
+              <Grid item xs={12} sm={12} xl={6} lg={6} md={6}>
+                <Typography variant="body2" className={classes.subTitle}>
+                  Negative Attitudes
+                </Typography>
+                <List dense>
+                  {userFeedback.improvementNegAttitude?.map((att) => (
+                    <ListItem>
+                      <ListItemText primary={att} key={att} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <Typography variant="body2" className={classes.nameText}>

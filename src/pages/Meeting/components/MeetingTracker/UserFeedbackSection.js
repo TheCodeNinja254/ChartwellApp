@@ -20,7 +20,7 @@ const UserFeedbackSection = ({ feedbackData }) => {
         Given Feedback
       </Typography>
       {feedbackData?.map((userFeedback) => (
-        <UserFeedbackCard userFeedback={userFeedback} />
+        <UserFeedbackCard userFeedback={userFeedback} key={userFeedback.id} />
       ))}
     </Box>
   );

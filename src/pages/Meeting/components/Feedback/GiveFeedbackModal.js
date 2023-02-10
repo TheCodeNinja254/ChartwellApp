@@ -5,10 +5,10 @@ import {
   DialogContentText,
   DialogTitle,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
-  Slider,
   Typography,
 } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
@@ -20,6 +20,7 @@ import Image from "../../../../components/Image";
 import feedbackImage from "../../../../assets/images/Graphics/feedbackNow.jpg";
 import clapImage from "../../../../assets/images/Graphics/clap.png";
 import _membersList from "../../../../_mockData/_membersList";
+import FeedbackTable from "./FeedbackTable";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -32,6 +33,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     textAlign: "center",
   },
+  actionArea: {
+    paddingTop: theme.spacing(2),
+    paddingRight: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
+  },
 }));
 
 const GiveFeedbackModal = ({
@@ -39,6 +45,8 @@ const GiveFeedbackModal = ({
   setOpen,
   feedbackData,
   setFeedbackData,
+  complete,
+  setComplete,
 }) => {
   const classes = useStyles();
 
@@ -52,26 +60,44 @@ const GiveFeedbackModal = ({
     setName(event.target.value);
   };
 
-  const [attScore, setAttScore] = React.useState(78);
-  const [feedbackText, setFeedbackScore] = React.useState("");
-  const [complete, setComplete] = React.useState(false);
+  const [improvementPosAttitude, setImprovementPosAttitude] = React.useState(
+    []
+  );
+  const [improvementNegAttitude, setImprovementNegAttitude] = React.useState(
+    []
+  );
 
-  const handleProgressBarChange = (event, newValue) => {
-    setAttScore(Number(newValue));
-  };
+  const [feedbackText, setFeedbackScore] = React.useState("");
 
   const handleFeedbackTextChange = (event) => {
     setFeedbackScore(event.target.value);
   };
 
   const handleAddFeedback = () => {
-    setFeedbackData([{ name, attScore, feedbackText }, ...feedbackData]); // clever unshift, right?
+    setFeedbackData([
+      { name, feedbackText, improvementNegAttitude, improvementPosAttitude },
+      ...feedbackData,
+    ]); // clever unshift, right?
     setComplete(true);
+  };
+
+  const btnDisabledState = () => {
+    let status = true;
+
+    if (
+      feedbackText !== "" &&
+      improvementPosAttitude.length > 0 &&
+      name !== ""
+    ) {
+      status = false;
+    }
+
+    return status;
   };
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
         <Box display="flex" justifyContent="center" alignItems="center">
           <Image
             src={complete ? clapImage : feedbackImage}
@@ -88,7 +114,7 @@ const GiveFeedbackModal = ({
               </Typography>
             </DialogTitle>
             <DialogContent>
-              <DialogContentText>
+              <DialogContentText align="center">
                 Feedback added successfully!
               </DialogContentText>
             </DialogContent>
@@ -101,62 +127,63 @@ const GiveFeedbackModal = ({
               </Typography>
             </DialogTitle>
             <DialogContent>
-              <DialogContentText>
-                Select a member, issue an attitude rating and feedback
-                information.
-              </DialogContentText>
-
-              <FormControl
-                variant="standard"
-                sx={{ m: 1, minWidth: 120 }}
-                fullWidth
-                margin="dense"
-              >
-                <InputLabel id="demo-simple-select-standard-label">
-                  Select a team member
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  value={name}
-                  onChange={handleNameChange}
-                  label="Select a user to rate"
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {_membersList?.map((m) => (
-                    <MenuItem value={m.name} key={m.id}>
-                      {m.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <TextField
-                margin="dense"
-                id="name"
-                label="Feedback"
-                type="text"
-                value={feedbackText}
-                multiline
-                rowsMax={5}
-                onChange={handleFeedbackTextChange}
-                fullWidth
-                variant="standard"
-              />
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                  <FormControl
+                    variant="standard"
+                    sx={{ m: 1, minWidth: 120 }}
+                    fullWidth
+                    margin="dense"
+                  >
+                    <InputLabel id="demo-simple-select-standard-label">
+                      Select a team member
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-standard-label"
+                      id="demo-simple-select-standard"
+                      value={name}
+                      onChange={handleNameChange}
+                      label="Select a user to rate"
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      {_membersList?.map((m) => (
+                        <MenuItem value={m.name} key={m.id}>
+                          {m.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                  <TextField
+                    margin="dense"
+                    id="name"
+                    label="Feedback"
+                    type="text"
+                    value={feedbackText}
+                    multiline
+                    rowsMax={5}
+                    onChange={handleFeedbackTextChange}
+                    fullWidth
+                    variant="standard"
+                  />
+                </Grid>
+              </Grid>
               <Typography variant="body2" className={classes.ratingLabelText}>
-                Enter an attitude rating
+                Select Improvement Attitudes
               </Typography>
-              <Slider
-                aria-label="rating"
-                value={attScore}
-                onChange={handleProgressBarChange}
-                valueLabelDisplay="on"
+              <FeedbackTable
+                setImprovementPosAttitude={setImprovementPosAttitude}
+                improvementPosAttitude={improvementPosAttitude}
+                setImprovementNegAttitude={setImprovementNegAttitude}
+                improvementNegAttitude={improvementNegAttitude}
               />
             </DialogContent>
           </>
         )}
-        <DialogActions>
+        <DialogActions className={classes.actionArea}>
           <Button
             onClick={handleClose}
             color="secondary"
@@ -169,9 +196,7 @@ const GiveFeedbackModal = ({
             <Button
               onClick={() => handleAddFeedback()}
               variant="contained"
-              disabled={
-                (!feedbackText || feedbackText === "") && (!name || name === "")
-              }
+              disabled={btnDisabledState()}
               color="primary"
               size="small"
               disableElevation

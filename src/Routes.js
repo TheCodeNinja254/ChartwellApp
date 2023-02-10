@@ -16,6 +16,9 @@ const MeetingView = lazy(() =>
 const ProjectsView = lazy(() =>
   import(/* webpackChunkName: "ProjectsView" */ "./pages/Projects")
 );
+const GlidepathView = lazy(() =>
+  import(/* webpackChunkName: "GlidepathView" */ "./pages/Glidepath")
+);
 
 const AppRoutes = () => {
   return (
@@ -43,6 +46,12 @@ const AppRoutes = () => {
         layout={MainLayout}
         exact
         path="/projects"
+      />
+      <RouteWithLayout
+        component={GlidepathView}
+        layout={MainLayout}
+        exact
+        path="/chart"
       />
       <RouteWithLayout component={NotFoundView} layout={MainLayout} />
     </Switch>

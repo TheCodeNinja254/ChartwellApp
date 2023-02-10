@@ -24,9 +24,6 @@ const ActionItemsSection = ({ actionItems }) => {
 
   const [filterValue, setFilterValue] = useState();
 
-  console.log(filterItemSelection);
-  console.log(filterValue);
-
   const filteredActionItems =
     filterItemSelection !== "Select Filter" && filterValue !== undefined
       ? actionItems.filter((item) =>
