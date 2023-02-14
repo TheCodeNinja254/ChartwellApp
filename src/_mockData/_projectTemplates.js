@@ -27,6 +27,13 @@ const _projectTemplates = [
     unitOfMeasure: "Percentage (%)",
     uom: "%",
   },
+  {
+    id: 5,
+    name: "Energy Cost Optimization",
+    metric: "Energy Cost",
+    unitOfMeasure: "Euro",
+    uom: "£",
+  },
 ];
 
 export default _projectTemplates;

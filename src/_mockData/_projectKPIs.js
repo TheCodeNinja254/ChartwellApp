@@ -102,6 +102,21 @@ const _projectKPIs = [
     defaultFor: "Waste/Yield/Quality",
     name: "Waste Stream Pareto",
   },
+  {
+    id: 21,
+    defaultFor: "Energy Cost Optimization",
+    name: "Energy Cost per Tonne",
+  },
+  {
+    id: 22,
+    defaultFor: "Energy Cost Optimization",
+    name: "Monthly Total Energy Expense",
+  },
+  {
+    id: 23,
+    defaultFor: "Energy Cost Optimization",
+    name: "Monthly Base Load Energy Expense",
+  },
 ];
 
 export default _projectKPIs;

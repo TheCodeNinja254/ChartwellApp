@@ -129,8 +129,33 @@ const _projectActionItems = [
       "Run problem solving workshop with team to better understand/identify possible fixes to problem",
   },
   {
-    key: 19,
+    key: 20,
     defaultFor: "Waste/Yield/Quality",
+    dueDate: _dateX.setDate(_dateX.getDate() + Math.random() * 10), // uses Math.random -- yes, yes, insecure.
+    actionName: "Create and implement actions",
+  },
+  {
+    key: 21,
+    defaultFor: "Energy Cost Optimization",
+    dueDate: _dateX.setDate(_dateX.getDate() + Math.random() * 10), // uses Math.random -- yes, yes, insecure.
+    actionName: "Perform line study to understand key energy inefficiencies",
+  },
+  {
+    key: 22,
+    defaultFor: "Energy Cost Optimization",
+    dueDate: _dateX.setDate(_dateX.getDate() + Math.random() * 10), // uses Math.random -- yes, yes, insecure.
+    actionName: "Understand process and key causes for energy use",
+  },
+  {
+    key: 23,
+    defaultFor: "Energy Cost Optimization",
+    dueDate: _dateX.setDate(_dateX.getDate() + Math.random() * 10), // uses Math.random -- yes, yes, insecure.
+    actionName:
+      "Run problem solving workshop with team to better understand/identify possible improvements",
+  },
+  {
+    key: 24,
+    defaultFor: "Energy Cost Optimization",
     dueDate: _dateX.setDate(_dateX.getDate() + Math.random() * 10), // uses Math.random -- yes, yes, insecure.
     actionName: "Create and implement actions",
   },
