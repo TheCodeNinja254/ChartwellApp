@@ -4,6 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Button, Container, Grid, Hidden, Tab, Tabs } from "@material-ui/core";
 import { NavHashLink } from "react-router-hash-link";
+import _siteLinks from "../../../_mockData/_siteLinks";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -122,21 +123,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const siteLinks = [
-  {
-    label: "My Meetings",
-    url: "/meetings",
-  },
-  {
-    label: "My Projects",
-    url: "/projects",
-  },
-  {
-    label: "GlidePath",
-    url: "/chart",
-  },
-];
-
 const Menubar = () => {
   const classes = useStyles();
 
@@ -178,7 +164,7 @@ const Menubar = () => {
                       },
                     }}
                   >
-                    {siteLinks.map((siteLink) => (
+                    {_siteLinks.map((siteLink) => (
                       <Tab
                         key={siteLink.label}
                         className={classes.Tab}
@@ -241,7 +227,7 @@ const Menubar = () => {
                 },
               }}
             >
-              {siteLinks.map((siteLink) => (
+              {_siteLinks.map((siteLink) => (
                 <Tab
                   key={siteLink.label}
                   className={classes.Tab}

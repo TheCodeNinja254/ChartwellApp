@@ -23,7 +23,7 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import TextField from "@material-ui/core/TextField";
-import { Adjust, Flare } from "@material-ui/icons";
+import { Adjust, Flare, Undo } from "@material-ui/icons";
 import nothingToSee from "../assets/images/Graphics/nothingToSee.jpg";
 import clapImage from "../assets/images/Graphics/clap.png";
 import Image from "./Image";
@@ -82,6 +82,16 @@ const useStyles = makeStyles((theme) => ({
   },
   projectTitle: {
     fontSize: 10,
+  },
+  descText: {
+    marginTop: theme.spacing(2),
+  },
+  actionButtonBox: {
+    marginLeft: theme.spacing(3),
+    marginTop: theme.spacing(1),
+  },
+  toggleButton: {
+    marginRight: theme.spacing(2),
   },
 }));
 
@@ -344,8 +354,17 @@ const ProjectPhaseCard = ({
                     Target Opportunities for this Phase
                   </Typography>
                   <Typography variant="body2">
-                    Move opportunities targeted for the phase into the right box
-                    under Opportunities
+                    Move opportunities targeted for the phase into the phase
+                    improvements targets section.
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    className={classes.descText}
+                    color="primary"
+                  >
+                    <strong>Important:</strong> Opportunity&apos;s Value against
+                    Complexity are indicated next to the opportunity name. The
+                    highest value for each is <strong>10</strong>.
                   </Typography>
                 </Grid>
 
@@ -364,12 +383,30 @@ const ProjectPhaseCard = ({
                   </>
                 ) : (
                   <>
-                    {opportunitiesLibrary(left)}
-                    <Grid item>
-                      <Grid container direction="column" alignItems="center">
+                    <Grid item className={classes.actionButtonBox}>
+                      <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        spacing={3}
+                      >
                         <Button
-                          sx={{ mt: 0.5 }}
-                          variant="outlined"
+                          className={classes.toggleButton}
+                          variant="contained"
+                          size="small"
+                          disableElevation
+                          color="primary"
+                          onClick={handleCheckedRight}
+                          disabled={leftChecked.length === 0}
+                          aria-label="move selected right"
+                        >
+                          Add Selected &gt;
+                        </Button>
+                        <Button
+                          className={classes.toggleButton}
+                          variant="contained"
+                          color="secondary"
+                          disableElevation
                           size="small"
                           onClick={handleAllRight}
                           disabled={left.length === 0}
@@ -377,15 +414,39 @@ const ProjectPhaseCard = ({
                         >
                           Add All ≫
                         </Button>
+                      </Grid>
+                    </Grid>
+                    {opportunitiesLibrary(left)}
+                    <Grid item className={classes.actionButtonBox}>
+                      <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        spacing={3}
+                      >
                         <Button
-                          sx={{ mt: 0.5 }}
-                          variant="outlined"
+                          variant="contained"
+                          className={classes.toggleButton}
                           size="small"
+                          color="primary"
+                          disableElevation
                           onClick={handleCheckedRight}
                           disabled={leftChecked.length === 0}
                           aria-label="move selected right"
                         >
                           Add Selected &gt;
+                        </Button>
+                        <Button
+                          className={classes.toggleButton}
+                          variant="contained"
+                          color="secondary"
+                          disableElevation
+                          size="small"
+                          onClick={handleAllRight}
+                          disabled={left.length === 0}
+                          aria-label="move all right"
+                        >
+                          Add All ≫
                         </Button>
                       </Grid>
                     </Grid>
@@ -470,12 +531,15 @@ const ProjectPhaseCard = ({
                               {selectedPhaseOpportunities(right)}
                               <Button
                                 sx={{ my: 0.5 }}
-                                variant="outlined"
+                                variant="contained"
+                                color="secondary"
                                 size="small"
+                                disableElevation
                                 onClick={handleAllLeft}
                                 disabled={right.length === 0}
                                 aria-label="move all left"
                               >
+                                <Undo />
                                 UNDO
                               </Button>
                             </>

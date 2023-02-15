@@ -1,16 +1,16 @@
 const _opportunities = [
-  "Startup Automation",
-  "Update Drying Steps",
-  "Reduce circulation time",
-  "Increase Heat Up Speed",
-  "Increase transfer temps",
-  "Adjust Cool profile to max heat transfer",
-  "Raise cooldown set-point",
-  "Quick cool vessel",
-  "Reduce Heat-up Sub-Phase 2 Variation",
-  "Speed Transfer at higher pressure",
-  "Increase vaq-torque",
-  "Reduce Extrusion Variation",
+  "Startup Automation (Value: 7, Complexity: 9)",
+  "Update Drying Steps (Value: 9, Complexity: 7)",
+  "Reduce circulation time (Value: 7, Complexity: 4)",
+  "Increase Heat Up Speed (Value: 5, Complexity: 10)",
+  "Increase transfer temps (Value: 3, Complexity: 5)",
+  "Adjust Cool profile to max heat transfer (Value: 3, Complexity: 1)",
+  "Raise cooldown set-point (Value: 10, Complexity: 1)",
+  "Quick cool vessel (Value: 4, Complexity: 10)",
+  "Reduce Heat-up Sub-Phase 2 Variation (Value: 2, Complexity: 9)",
+  "Speed Transfer at higher pressure (Value: 4, Complexity: 3)",
+  "Increase vaq-torque (Value: 10, Complexity: 1)",
+  "Reduce Extrusion Variation (Value: 2, Complexity: 5)",
 ];
 
 export default _opportunities;

@@ -1,13 +1,17 @@
 import React from "react";
-import { Card, Typography } from "@material-ui/core";
+import { Box, Card, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ProjectPhaseCard from "../../../components/ProjectPhaseCard";
+import Image from "../../../components/Image";
+import opportunityMmatrix from "../../../assets/images/opportunityMmatrix.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   heading: {
-    marginTop: theme.spacing(4),
     marginBottom: theme.spacing(2),
+  },
+  displayImage: {
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -28,8 +32,23 @@ const ProjectPhasesSection = ({
   return (
     <Card elevation={0}>
       <Typography variant="h4" className={classes.heading}>
-        {stageOneCollapse ? "Project Phases" : "Opportunity Mapping"}
+        {stageOneCollapse ? "Project Phases" : ""}
       </Typography>
+      {!stageOneCollapse && (
+        <Box>
+          <Typography variant="body2">
+            Use the opportunity matrix below to evaluate an opportunities value
+            against complexity. This should be a guide as you add opportunities
+            into each project Phase.
+          </Typography>
+          <Image
+            src={opportunityMmatrix}
+            alt="opportunityMmatrix"
+            className={classes.displayImage}
+            height={400}
+          />
+        </Box>
+      )}
       {Number(phasesNumber) > 1 && Number(phasesNumber) < 10 ? (
         noOfPhases.map((i) => (
           <ProjectPhaseCard

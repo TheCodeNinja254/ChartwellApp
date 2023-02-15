@@ -1,4 +1,12 @@
-import { Box, Divider, Grid, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Divider,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import KPITracking from "../Tables/KPITracking";
@@ -6,6 +14,7 @@ import Image from "../../../../components/Image";
 import displayImage from "../../../../assets/images/Graphics/measurePerformance.jpg";
 import CongratulationsSection from "../Feedback/CongratulationsSection";
 import AddActionModal from "../Feedback/AddActionModal";
+import ViewGlidepathChartModal from "../Feedback/ViewGlidepathChartModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -16,6 +25,13 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     margin: theme.spacing(2),
   },
+  graphCard: {
+    borderRadius: 20,
+    marginBottom: theme.spacing(2),
+  },
+  toggleButton: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 const KPITrackingSection = ({
@@ -25,6 +41,7 @@ const KPITrackingSection = ({
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
+  const [glidepathOpen, setGlidepathOpen] = useState(false);
   const [complete, setComplete] = React.useState(false);
 
   return (
@@ -43,6 +60,22 @@ const KPITrackingSection = ({
           <Divider className={classes.divider} />
         </Grid>
         <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+          <Card variant="outlined" elevatoion={0} className={classes.graphCard}>
+            <CardContent>
+              <Typography color="primary">
+                <strong>View Glidepath, click the button below</strong>
+              </Typography>
+              <Button
+                className={classes.toggleButton}
+                variant="contained"
+                color="primary"
+                disableElevation
+                onClick={() => setGlidepathOpen(true)}
+              >
+                View Glidepath
+              </Button>
+            </CardContent>
+          </Card>
           <KPITracking
             open={open}
             setOpen={setOpen}
@@ -60,6 +93,10 @@ const KPITrackingSection = ({
         complete={complete}
         actionItemsActiveList={actionItemsActiveList}
         setActionItemsActiveList={setActionItemsActiveList}
+      />
+      <ViewGlidepathChartModal
+        open={glidepathOpen}
+        setOpen={setGlidepathOpen}
       />
     </Box>
   );
